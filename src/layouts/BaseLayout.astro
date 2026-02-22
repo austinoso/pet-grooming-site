@@ -15,6 +15,8 @@ interface Props extends PageSEO {
 
 const { title, description, canonical, ogImage, ogType, noindex, jsonLd } =
   Astro.props;
+
+const tenant = Astro.locals.tenant;
 ---
 
 <!doctype html>
@@ -68,7 +70,7 @@ const { title, description, canonical, ogImage, ogType, noindex, jsonLd } =
     {/* Accessibility: skip to main content */}
     <a href="#main-content" class="skip-link"> Skip to main content </a>
 
-    <Header client:load />
+    <Header tenant={tenant} client:load />
 
     <main id="main-content" class="flex-1">
       <slot />

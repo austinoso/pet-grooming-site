@@ -3,7 +3,7 @@
  * Breadcrumbs — Renders a breadcrumb trail with JSON-LD structured data.
  * Astro component.
  */
-import { siteUrl } from "../../config/seo";
+const siteUrl = Astro.locals.tenant.siteUrl;
 
 interface BreadcrumbItem {
   label: string;

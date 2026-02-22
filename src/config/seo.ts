@@ -1,10 +1,11 @@
 /**
  * SEO Configuration
  * ─────────────────
- * Default meta values, Open Graph settings, and JSON-LD helpers.
+ * Per-request helpers — always pass the active tenant so values stay
+ * correct across all subdomains on the single deployment.
  */
 
-import business from "./business";
+import type { TenantConfig } from "./business";
 
 export interface PageSEO {
   title?: string;
@@ -15,20 +16,20 @@ export interface PageSEO {
   noindex?: boolean;
 }
 
-const siteUrl = "https://www.pawsandpolish.com"; // must match astro.config.mjs `site`
-
-export const defaultSEO: Required<PageSEO> = {
-  title: `${business.name} | Professional Pet Grooming in ${business.address.city}, ${business.address.stateAbbr}`,
-  description: business.description,
-  canonical: siteUrl,
-  ogImage: `${siteUrl}/images/hero/hero-dog.jpg`,
-  ogType: "website",
-  noindex: false,
-};
-
-export function buildTitle(pageTitle?: string): string {
-  if (!pageTitle) return defaultSEO.title;
-  return `${pageTitle} | ${business.name}`;
+/** Returns the default SEO values for the given tenant. */
+export function getDefaultSEO(tenant: TenantConfig): Required<PageSEO> {
+  return {
+    title: `${tenant.name} | Professional Pet Grooming in ${tenant.address.city}, ${tenant.address.stateAbbr}`,
+    description: tenant.description,
+    canonical: tenant.siteUrl,
+    ogImage: `${tenant.siteUrl}/images/hero/hero-dog.jpg`,
+    ogType: "website",
+    noindex: false,
+  };
 }
 
-export { siteUrl };
+/** Builds a page-specific <title> tag. */
+export function buildTitle(tenant: TenantConfig, pageTitle?: string): string {
+  if (!pageTitle) return getDefaultSEO(tenant).title;
+  return `${pageTitle} | ${tenant.name}`;
+}

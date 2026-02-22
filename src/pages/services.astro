@@ -1,7 +1,7 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
-import business from "../config/business";
+const business = Astro.locals.tenant;
 
 const allServices = await getCollection("services");
 const services = allServices.sort((a, b) => a.data.order - b.data.order);

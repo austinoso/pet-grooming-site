@@ -3,54 +3,57 @@
  * SEOHead — Renders all meta tags, Open Graph, Twitter Cards, and JSON-LD.
  * Used inside BaseLayout's <head>.
  */
-import { buildTitle, defaultSEO, siteUrl } from "../../config/seo";
-import business from "../../config/business";
+import { buildTitle, getDefaultSEO } from "../../config/seo";
 import type { PageSEO } from "../../config/seo";
 
 interface Props extends PageSEO {
   jsonLd?: Record<string, unknown>;
 }
 
+const tenant = Astro.locals.tenant;
+const defaults = getDefaultSEO(tenant);
+const siteUrl = tenant.siteUrl;
+
 const {
   title: rawTitle,
-  description = defaultSEO.description,
+  description = defaults.description,
   canonical,
-  ogImage = defaultSEO.ogImage,
-  ogType = defaultSEO.ogType,
+  ogImage = defaults.ogImage,
+  ogType = defaults.ogType,
   noindex = false,
   jsonLd,
 } = Astro.props;
 
-const title = buildTitle(rawTitle);
+const title = buildTitle(tenant, rawTitle);
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 
 // Default LocalBusiness JSON-LD (can be overridden per page via jsonLd prop)
 const defaultJsonLd = {
   "@context": "https://schema.org",
   "@type": "PetGrooming",
-  name: business.name,
-  description: business.description,
+  name: tenant.name,
+  description: tenant.description,
   url: siteUrl,
-  telephone: business.phone,
-  email: business.email,
+  telephone: tenant.phone,
+  email: tenant.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: business.address.street,
-    addressLocality: business.address.city,
-    addressRegion: business.address.stateAbbr,
-    postalCode: business.address.zip,
-    addressCountry: business.address.country,
+    streetAddress: tenant.address.street,
+    addressLocality: tenant.address.city,
+    addressRegion: tenant.address.stateAbbr,
+    postalCode: tenant.address.zip,
+    addressCountry: tenant.address.country,
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: business.coordinates.lat,
-    longitude: business.coordinates.lng,
+    latitude: tenant.coordinates.lat,
+    longitude: tenant.coordinates.lng,
   },
-  areaServed: business.serviceArea.map((area) => ({
+  areaServed: tenant.serviceArea.map((area) => ({
     "@type": "City",
     name: area,
   })),
-  openingHoursSpecification: business.hours
+  openingHoursSpecification: tenant.hours
     .filter((h) => !h.closed)
     .map((h) => ({
       "@type": "OpeningHoursSpecification",
@@ -78,7 +81,7 @@ const structuredData = jsonLd ?? defaultJsonLd;
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={description} />
-<meta property="og:site_name" content={business.name} />
+<meta property="og:site_name" content={tenant.name} />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter Card -->
@@ -90,16 +93,16 @@ const structuredData = jsonLd ?? defaultJsonLd;
 <!-- Geo Meta (Local SEO) -->
 <meta
   name="geo.region"
-  content={`${business.address.country}-${business.address.stateAbbr}`}
+  content={`${tenant.address.country}-${tenant.address.stateAbbr}`}
 />
-<meta name="geo.placename" content={business.address.city} />
+<meta name="geo.placename" content={tenant.address.city} />
 <meta
   name="geo.position"
-  content={`${business.coordinates.lat};${business.coordinates.lng}`}
+  content={`${tenant.coordinates.lat};${tenant.coordinates.lng}`}
 />
 <meta
   name="ICBM"
-  content={`${business.coordinates.lat}, ${business.coordinates.lng}`}
+  content={`${tenant.coordinates.lat}, ${tenant.coordinates.lng}`}
 />
 
 <!-- JSON-LD Structured Data -->

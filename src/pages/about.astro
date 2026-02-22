@@ -3,8 +3,9 @@ import PageLayout from "../layouts/PageLayout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
-import business from "../config/business";
 import salonImg from "../assets/images/salon.jpg";
+
+const business = Astro.locals.tenant;
 
 const allTeam = await getCollection("team");
 const team = allTeam.sort((a, b) => a.data.order - b.data.order);

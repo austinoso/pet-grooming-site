@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getImage } from "astro:assets";
-import business from "../config/business";
 import heroImg from "../assets/images/hero-dog.jpg";
+
+const business = Astro.locals.tenant;
 
 // Two versions: fast-loading placeholder + crisp hi-res for swap-in
 const heroLo = await getImage({

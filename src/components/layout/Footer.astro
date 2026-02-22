@@ -4,7 +4,7 @@
  * Astro component (no client JS needed).
  */
 import { footerNav } from "../../config/navigation";
-import business from "../../config/business";
+const business = Astro.locals.tenant;
 ---
 
 <footer class="bg-dark text-neutral-200" role="contentinfo">
@@ -30,7 +30,7 @@ import business from "../../config/business";
             </svg>
           </div>
           <span class="font-display text-xl font-bold text-white"
-            >Paws &amp; Polish</span
+            >{business.name}</span
           >
         </a>
         <p class="mt-4 text-sm leading-relaxed text-neutral-300">

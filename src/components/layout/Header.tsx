@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { mainNav, ctaLink } from "../../config/navigation";
-import business from "../../config/business";
+import type { TenantConfig } from "../../config/business";
 
 /**
  * Header — Refined navigation with editorial typography.
- * Distinctive wordmark, clean links, utility bar, no emoji.
+ * Receives tenant data as a prop so it works across all subdomains.
  */
-export default function Header() {
+export default function Header({ tenant }: { tenant: TenantConfig }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -83,22 +83,22 @@ export default function Header() {
       <div className="hidden bg-primary-800 text-primary-200 lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs tracking-wide">
           <span>
-            {business.address.street}, {business.address.city},{" "}
-            {business.address.stateAbbr} {business.address.zip}
+            {tenant.address.street}, {tenant.address.city},{" "}
+            {tenant.address.stateAbbr} {tenant.address.zip}
           </span>
           <div className="flex items-center gap-5">
             <a
-              href={`tel:${business.phone.replace(/[^+\d]/g, "")}`}
+              href={`tel:${tenant.phone.replace(/[^+\d]/g, "")}`}
               className="text-primary-200 no-underline transition-colors hover:text-white"
             >
-              {business.phone}
+              {tenant.phone}
             </a>
             <span className="h-3 w-px bg-primary-600" aria-hidden="true" />
             <a
-              href={`mailto:${business.email}`}
+              href={`mailto:${tenant.email}`}
               className="text-primary-200 no-underline transition-colors hover:text-white"
             >
-              {business.email}
+              {tenant.email}
             </a>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function Header() {
           <a
             href="/"
             className="group flex items-center gap-2.5 no-underline"
-            aria-label={`${business.name} — Home`}
+            aria-label={`${tenant.name} — Home`}
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-600 transition-colors group-hover:bg-primary-500">
               <svg
@@ -136,7 +136,7 @@ export default function Header() {
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-xl font-bold tracking-tight text-dark">
-                Paws &amp; Polish
+                {tenant.name}
               </span>
               <span className="mt-0.5 hidden text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-400 sm:block">
                 Pet Grooming
@@ -332,10 +332,10 @@ export default function Header() {
                 />
               </svg>
               <a
-                href={`tel:${business.phone.replace(/[^+\d]/g, "")}`}
+                href={`tel:${tenant.phone.replace(/[^+\d]/g, "")}`}
                 className="text-neutral-600 no-underline hover:text-primary-600"
               >
-                {business.phone}
+                {tenant.phone}
               </a>
             </div>
           </div>
