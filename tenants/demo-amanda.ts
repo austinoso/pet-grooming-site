@@ -1,85 +1,91 @@
 /**
- * Tenant: Paws & Polish Pet Grooming  (DEMO)
- * ───────────────────────────────────────────
- * This is the sample/demo business used while you're pitching the design.
- * Duplicate this file for each real client and fill in their details.
+ * Tenant Template
+ * ───────────────
+ * 1. Copy this file → tenants/your-client-slug.ts
+ *    (use a short lowercase kebab-case slug, e.g. happy-paws-fresno)
+ * 2. Fill in every field below.
+ * 3. Import the file in src/config/active-tenant.ts and add it to the registry
+ *    using the same slug as the filename (without .ts).
+ * 4. In your hosting deployment set:
+ *      PUBLIC_TENANT=your-client-slug
+ *      PUBLIC_SITE_URL=https://clientname.yourdomain.com
+ *    and point the subdomain at that deployment.
  */
 
 import type { TenantConfig } from "../src/config/business";
 
 const tenant: TenantConfig = {
   // ── Identity ──────────────────────────────────────────────────────────
-  name: "Paws & Polish Pet Grooming",
-  tagline: "Where every pet leaves looking pawfect",
-  description:
-    "Professional pet grooming services for dogs and cats. Certified groomers, gentle handling, and a stress-free experience your pet will love.",
+  name: "Amanda's Top Notch Grooming",
+  tagline: "Your catchy tagline here",
+  description: "Professional pet grooming services for dogs and cats. Serving the Patterson area with love and care.",
 
   // ── Site URL (used for SEO / Open Graph) ──────────────────────────────
-  siteUrl: "https://paws.austino.dev",
+  siteUrl: "https://amandas-grooming.austino.dev",
 
   // ── Hostnames this tenant owns (no scheme, no port) ───────────────────
-  // The middleware matches the incoming Host header against these.
-  // Add "localhost" here (or use PUBLIC_TENANT in .env) for local dev.
-  hosts: ["paws.austino.dev"],
+  // Add every hostname that should serve this tenant's content.
+  // The subdomain you point at Cloudflare Pages must be listed here.
+  hosts: ["amandas-grooming.austino.dev", "www.amandas-grooming.austino.dev"],
 
   // ── Contact ───────────────────────────────────────────────────────────
-  phone: "(555) 123-4567",
-  email: "hello@pawsandpolish.com",
+  phone: "(209) 892-2622",
+  email: "hello@yourdomain.com",
 
   address: {
-    street: "123 Main Street",
-    city: "Manteca",
+    street: "600 N 2nd St",
+    city: "Patterson",
     state: "California",
     stateAbbr: "CA",
-    zip: "95337",
+    zip: "95357",
     country: "US",
   },
 
+  // Drop a pin in Google Maps, right-click → "What's here?" to get lat/lng.
   coordinates: {
-    lat: 37.8063,
-    lng: -121.2161,
+    lat: 37.4789413,
+    lng: -121.1339754,
   },
 
   // ── Service Area ──────────────────────────────────────────────────────
-  serviceArea: ["Manteca", "Lathrop", "Ripon", "Escalon", "Tracy", "Stockton"],
+  // Surrounding cities/neighborhoods you want to appear in local SEO.
+  serviceArea: ["Patterson", "Ceres", "Modesto"],
 
   // ── Hours ─────────────────────────────────────────────────────────────
+  // Set closed: true for days the business is closed (open/close are ignored).
   hours: [
-    { day: "Monday", open: "8:00 AM", close: "6:00 PM" },
-    { day: "Tuesday", open: "8:00 AM", close: "6:00 PM" },
-    { day: "Wednesday", open: "8:00 AM", close: "6:00 PM" },
-    { day: "Thursday", open: "8:00 AM", close: "6:00 PM" },
-    { day: "Friday", open: "8:00 AM", close: "6:00 PM" },
+    { day: "Monday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Tuesday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Wednesday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Thursday", open: "9:00 AM", close: "6:00 PM" },
+    { day: "Friday", open: "9:00 AM", close: "6:00 PM" },
     { day: "Saturday", open: "9:00 AM", close: "4:00 PM" },
     { day: "Sunday", open: "9:00 AM", close: "4:00 PM", closed: true },
   ],
 
   // ── Social ────────────────────────────────────────────────────────────
+  // Remove any platforms the client doesn't use; add new ones freely.
   social: [
     {
       platform: "Facebook",
-      url: "https://facebook.com/pawsandpolish",
+      url: "https://facebook.com/yourpage",
       label: "Follow us on Facebook",
     },
     {
       platform: "Instagram",
-      url: "https://instagram.com/pawsandpolish",
+      url: "https://instagram.com/yourhandle",
       label: "Follow us on Instagram",
     },
     {
       platform: "Google",
-      url: "https://g.page/pawsandpolish",
+      url: "https://g.page/yourbusiness",
       label: "Find us on Google",
     },
   ],
 
   // ── About ─────────────────────────────────────────────────────────────
   founded: 2020,
-  certifications: [
-    "National Dog Groomers Association of America (NDGAA)",
-    "International Professional Groomers Inc. (IPG)",
-    "Pet First Aid & CPR Certified",
-  ],
+  certifications: ["Certification Name Here", "Another Certification Here"],
 };
 
 export default tenant;

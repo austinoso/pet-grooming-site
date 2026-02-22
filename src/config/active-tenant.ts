@@ -16,12 +16,14 @@ import type { TenantConfig } from "./business";
 
 // ── 1. Import every tenant file here ──────────────────────────────────────
 import demoPawsAndPolish from "../../tenants/demo-paws-and-polish";
+import demoAmanda from "../../tenants/demo-amanda";
 // import happyPawsFresno from "../../tenants/happy-paws-fresno";
 // import fluffyCutsModesto from "../../tenants/fluffy-cuts-modesto";
 
 // ── 2. Register them by a slug ID ─────────────────────────────────────────
 const registry: Record<string, TenantConfig> = {
   "demo-paws-and-polish": demoPawsAndPolish,
+  "demo-amanda": demoAmanda,
   // "happy-paws-fresno": happyPawsFresno,
   // "fluffy-cuts-modesto": fluffyCutsModesto,
 };
