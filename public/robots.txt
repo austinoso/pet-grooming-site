@@ -1,0 +1,5 @@
+# Robots.txt — Paws & Polish Pet Grooming
+User-agent: *
+Allow: /
+
+Sitemap: https://www.pawsandpolish.com/sitemap-index.xml

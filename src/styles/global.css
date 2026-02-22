@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ========================================================================
+   THEME — Design Tokens
+   One-file brand swap. All visual identity starts here.
+   ======================================================================== */
+
+@theme {
+  /* Brand palette — warm, sophisticated, confident */
+  --color-primary-50: #f0f5f4;
+  --color-primary-100: #d6e4e1;
+  --color-primary-200: #adc9c3;
+  --color-primary-300: #7dada3;
+  --color-primary-400: #5a968a;
+  --color-primary-500: #3d7a6e;
+  --color-primary-600: #316258;
+  --color-primary-700: #264a42;
+  --color-primary-800: #1a322d;
+  --color-primary-900: #0f1b18;
+
+  --color-accent-50: #fef7ee;
+  --color-accent-100: #fcecd5;
+  --color-accent-200: #f9d6aa;
+  --color-accent-300: #f5bb75;
+  --color-accent-400: #f0a054;
+  --color-accent-500: #e8873a;
+  --color-accent-600: #d06b22;
+  --color-accent-700: #a5511b;
+  --color-accent-800: #7a3c17;
+  --color-accent-900: #4f2711;
+
+  --color-neutral-50: #faf9f7;
+  --color-neutral-100: #f3f1ed;
+  --color-neutral-200: #e8e4dd;
+  --color-neutral-300: #d5cfc5;
+  --color-neutral-400: #b5ad9f;
+  --color-neutral-500: #958b7a;
+  --color-neutral-600: #756a5a;
+  --color-neutral-700: #564e41;
+  --color-neutral-800: #38332b;
+  --color-neutral-900: #1c1916;
+
+  --color-dark: #1a1e2e;
+  --color-dark-light: #282d40;
+  --color-white: #ffffff;
+
+  /* Typography — Playfair Display for editorial punch, Inter for UI */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+}
+
+/* ========================================================================
+   BASE STYLES
+   ======================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  letter-spacing: -0.011em;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary-600);
+  color: var(--color-white);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 3px;
+}
+
+/* Reduce motion globally for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================================================
+   UTILITY CLASSES — Unique visual language
+   ======================================================================== */
+
+/* Section divider — organic wave */
+.section-wave {
+  position: relative;
+}
+.section-wave::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: inherit;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath d='M0,0 C480,60 960,60 1440,0 L1440,60 L0,60 Z' fill='white'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath d='M0,0 C480,60 960,60 1440,0 L1440,60 L0,60 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: cover;
+  z-index: 1;
+}
+
+/* Decorative line accent */
+.line-accent::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: var(--color-accent-400);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+.line-accent-center::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: var(--color-accent-400);
+  border-radius: 2px;
+  margin: 0 auto 1rem;
+}
+
+/* Soft gradient overlays */
+.gradient-hero {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-800) 0%,
+    var(--color-primary-600) 40%,
+    var(--color-primary-500) 100%
+  );
+}
+
+/* Glass card effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Quote mark decoration */
+.quote-mark::before {
+  content: "\201C";
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--color-accent-300);
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
+  opacity: 0.6;
+}
+
+/* Editorial label (small caps style) */
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary-400);
+}
+
+/* Subtle dot pattern background */
+.dot-pattern {
+  background-image: radial-gradient(var(--color-neutral-300) 1px, transparent 1px);
+  background-size: 20px 20px;
+}

@@ -1,0 +1,272 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import business from "../config/business";
+import salonImg from "../assets/images/salon.jpg";
+
+const allTeam = await getCollection("team");
+const team = allTeam.sort((a, b) => a.data.order - b.data.order);
+---
+
+<PageLayout
+  title="About Us"
+  heading="About Paws & Polish"
+  subheading={`Proudly serving ${business.address.city} and surrounding communities since ${business.founded}.`}
+>
+  {/* Origin Story */}
+  <section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div>
+        <span
+          class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
+        >
+          <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
+          Our Story
+        </span>
+        <h2 class="mt-3 font-display text-2xl font-bold text-dark">
+          How it all started
+        </h2>
+        <div class="mt-5 space-y-4 text-neutral-600 leading-relaxed">
+          <p>
+            Paws & Polish was born from a simple idea: every pet deserves to be
+            treated with the same love and care their family gives them at home.
+            After years of working in grooming salons that prioritized speed
+            over quality, our founder Jessica Torres decided to build something
+            different — a grooming salon that puts pet comfort first.
+          </p>
+          <p>
+            What started as a one-person operation in a small storefront has
+            grown into {business.address.city}'s most trusted pet grooming
+            destination. But our core values haven't changed: patience,
+            gentleness, and genuine love for every animal that walks through our
+            doors.
+          </p>
+          <p>
+            Today, our team of certified groomers serves hundreds of happy pet
+            families across
+            {business.serviceArea.join(", ")}. Whether your pet needs a full spa
+            day or just a quick nail trim, we treat every visit like it matters
+            — because it does.
+          </p>
+        </div>
+      </div>
+      <div class="relative">
+        <div
+          class="absolute -right-4 -top-4 h-48 w-48 rounded-full bg-primary-100/60"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative aspect-4/3 overflow-hidden rounded-2xl shadow-xl">
+          <Image
+            src={salonImg}
+            alt="Inside the Paws & Polish grooming salon"
+            class="h-full w-full object-cover"
+            width={800}
+            height={600}
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Values */}
+  <section class="bg-primary-800 py-20" aria-labelledby="values-heading">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span
+          class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-300"
+        >
+          <span class="h-px w-8 bg-primary-500" aria-hidden="true"></span>
+          What We Stand For
+          <span class="h-px w-8 bg-primary-500" aria-hidden="true"></span>
+        </span>
+        <h2
+          id="values-heading"
+          class="mt-3 font-display text-2xl font-bold text-white"
+        >
+          Our Values
+        </h2>
+      </div>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          [
+            {
+              title: "Pet-First Approach",
+              desc: "Every decision we make starts with one question: is this best for the pet?",
+              icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />`,
+            },
+            {
+              title: "Trust & Transparency",
+              desc: "We explain every step and never do anything without your approval.",
+              icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />`,
+            },
+            {
+              title: "Continuous Learning",
+              desc: "Our groomers stay current with the latest techniques and safety standards.",
+              icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />`,
+            },
+            {
+              title: "Community Roots",
+              desc: "Locally owned and actively supporting our community's animals in need.",
+              icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />`,
+            },
+          ].map((value) => (
+            <div class="rounded-xl bg-white/5 p-6 backdrop-blur-sm">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-primary-200">
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  set:html={value.icon}
+                />
+              </div>
+              <h3 class="mt-4 font-semibold text-white">{value.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-primary-200">
+                {value.desc}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Team */}
+  <section
+    class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+    aria-labelledby="team-heading"
+  >
+    <div class="text-center">
+      <span
+        class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
+      >
+        <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
+        The Team
+        <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
+      </span>
+      <h2
+        id="team-heading"
+        class="mt-3 font-display text-2xl font-bold text-dark"
+      >
+        Meet Our Groomers
+      </h2>
+      <p class="mt-3 text-neutral-500">
+        Certified professionals who genuinely love what they do.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        team.map(async (member) => {
+          const { Content } = await render(member);
+          return (
+            <article class="group overflow-hidden rounded-2xl border border-neutral-100 bg-neutral-50/50 transition-all duration-300 hover:border-primary-200 hover:bg-white hover:shadow-lg hover:shadow-primary-600/5">
+              <div class="aspect-3/2 overflow-hidden">
+                <Image
+                  src={member.data.image}
+                  alt={`${member.data.name} — ${member.data.role}`}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  width={600}
+                  height={400}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-dark">
+                  {member.data.name}
+                </h3>
+                <p class="text-sm font-medium text-primary-600">
+                  {member.data.role}
+                </p>
+                <div class="mt-3 text-sm text-neutral-600 leading-relaxed prose prose-sm">
+                  <Content />
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  {/* Certifications */}
+  <section class="bg-neutral-50 py-16" aria-labelledby="certs-heading">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 id="certs-heading" class="font-display text-2xl font-bold text-dark">
+        Certifications &amp; Affiliations
+      </h2>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        {
+          business.certifications.map((cert) => (
+            <div class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-5 py-3 text-sm font-medium text-dark shadow-sm">
+              <svg
+                class="h-4 w-4 text-primary-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              {cert}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section
+    class="relative overflow-hidden bg-primary-600 py-16"
+    aria-labelledby="about-cta"
+  >
+    <div
+      class="absolute inset-0 opacity-10"
+      style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 24px 24px;"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <h2 id="about-cta" class="font-display text-2xl font-bold text-white">
+        Ready to meet us in person?
+      </h2>
+      <p class="mt-3 text-primary-100">
+        Book your first appointment and experience the Paws &amp; Polish
+        difference.
+      </p>
+      <a
+        href="/booking"
+        class="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-white px-8 py-3.5 text-sm font-semibold text-primary-700 shadow-lg transition-all hover:bg-neutral-50 active:scale-[0.97]"
+      >
+        Book Now
+        <svg
+          class="h-3.5 w-3.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+</PageLayout>

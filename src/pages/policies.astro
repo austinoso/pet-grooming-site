@@ -1,0 +1,191 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import business from "../config/business";
+---
+
+<PageLayout
+  title="Policies"
+  heading="Our Policies"
+  subheading="Important information about appointments, health requirements, and more."
+>
+  <section class="mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:px-8">
+    <div class="space-y-14">
+      {/* Cancellation Policy */}
+      <article>
+        <h2
+          class="font-display text-xl font-bold text-dark border-b border-neutral-200 pb-3"
+        >
+          Cancellation &amp; No-Show Policy
+        </h2>
+        <div class="mt-4 space-y-3 text-sm text-neutral-600 leading-relaxed">
+          <p>
+            We understand that life happens. If you need to cancel or reschedule
+            your appointment, we kindly ask for <strong class="text-dark"
+              >at least 24 hours' notice</strong
+            >.
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Cancellations made with 24+ hours' notice: no charge.</li>
+            <li>
+              Cancellations made with less than 24 hours' notice: a $25 late
+              cancellation fee may apply.
+            </li>
+            <li>
+              No-shows (missed appointments without notice): the full service
+              price may be charged.
+            </li>
+            <li>
+              Repeated no-shows may result in a required deposit for future
+              bookings.
+            </li>
+          </ul>
+          <p>
+            To cancel or reschedule, please call us at
+            <a
+              href={`tel:${business.phone.replace(/[^+\d]/g, "")}`}
+              class="text-primary-600 font-medium hover:underline"
+              >{business.phone}</a
+            >
+            or email
+            <a
+              href={`mailto:${business.email}`}
+              class="text-primary-600 font-medium hover:underline"
+              >{business.email}</a
+            >.
+          </p>
+        </div>
+      </article>
+
+      {/* Health & Vaccination Requirements */}
+      <article>
+        <h2
+          class="font-display text-xl font-bold text-dark border-b border-neutral-200 pb-3"
+        >
+          Health &amp; Vaccination Requirements
+        </h2>
+        <div class="mt-4 space-y-3 text-sm text-neutral-600 leading-relaxed">
+          <p>
+            For the safety and well-being of all pets and staff, we require the
+            following:
+          </p>
+          <h3 class="font-semibold text-dark mt-4">Dogs</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Rabies vaccination (current)</li>
+            <li>Distemper/Parvo (DHPP) vaccination (current)</li>
+            <li>Bordetella (Kennel Cough) vaccination (current)</li>
+          </ul>
+          <h3 class="font-semibold text-dark mt-4">Cats</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Rabies vaccination (current)</li>
+            <li>FVRCP vaccination (current)</li>
+          </ul>
+          <p>
+            Please bring proof of vaccinations to your first appointment or have
+            your veterinarian email records to <a
+              href={`mailto:${business.email}`}
+              class="text-primary-600 font-medium hover:underline"
+              >{business.email}</a
+            > in advance.
+          </p>
+          <p>
+            Pets showing signs of illness (vomiting, diarrhea, lethargy,
+            coughing, discharge, parasites) will not be groomed and will need to
+            be picked up immediately. No cancellation fee applies in these
+            cases.
+          </p>
+        </div>
+      </article>
+
+      {/* Aggressive Pet Policy */}
+      <article>
+        <h2
+          class="font-display text-xl font-bold text-dark border-b border-neutral-200 pb-3"
+        >
+          Behavioral &amp; Aggressive Pet Policy
+        </h2>
+        <div class="mt-4 space-y-3 text-sm text-neutral-600 leading-relaxed">
+          <p>
+            Our groomers are experienced in gentle handling and calming nervous
+            pets. However, the safety of our team is paramount.
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>
+              Please inform us of any history of biting, aggression, or extreme
+              anxiety at the time of booking.
+            </li>
+            <li>
+              If a pet becomes aggressive during grooming, we reserve the right
+              to stop the session for safety. You will be charged for the
+              portion of the service completed.
+            </li>
+            <li>
+              For anxious or reactive pets, we offer "introduction sessions" —
+              short, low-pressure visits to build comfort gradually.
+            </li>
+            <li>
+              In some cases, we may recommend consulting with your veterinarian
+              about anxiety-reducing options before the appointment.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      {/* Matted Coat Policy */}
+      <article>
+        <h2
+          class="font-display text-xl font-bold text-dark border-b border-neutral-200 pb-3"
+        >
+          Matted Coat Policy
+        </h2>
+        <div class="mt-4 space-y-3 text-sm text-neutral-600 leading-relaxed">
+          <p>
+            Severely matted coats can cause pain, restrict blood flow, and hide
+            skin conditions. De-matting can be time-consuming, uncomfortable,
+            and sometimes impossible without shaving.
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>We will always attempt gentle de-matting when possible.</li>
+            <li>
+              If matting is too severe, we may recommend a "fresh start" clip
+              for your pet's comfort and safety.
+            </li>
+            <li>Additional charges may apply for extensive de-matting work.</li>
+            <li>
+              We will always discuss options and get your approval before
+              proceeding.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      {/* Liability */}
+      <article>
+        <h2
+          class="font-display text-xl font-bold text-dark border-b border-neutral-200 pb-3"
+        >
+          Liability Disclaimer
+        </h2>
+        <div class="mt-4 space-y-3 text-sm text-neutral-600 leading-relaxed">
+          <p>
+            While we take the utmost care with every pet, grooming does involve
+            handling, bathing, cutting, and drying. There are inherent risks
+            involved, including but not limited to:
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>
+              Minor nicks or scrapes (especially on matted or moving pets)
+            </li>
+            <li>Stress-related behaviors</li>
+            <li>Pre-existing conditions becoming apparent during grooming</li>
+          </ul>
+          <p>
+            {business.name} carries professional liability insurance. In the unlikely
+            event of an injury, we will immediately inform you and, if necessary,
+            seek veterinary attention at our expense for any injury caused by our
+            negligence.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+</PageLayout>

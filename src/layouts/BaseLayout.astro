@@ -1,0 +1,60 @@
+---
+/**
+ * BaseLayout — Root layout for every page.
+ * Handles <html>, <head> (meta + SEOHead), Header, Footer, and skip link.
+ */
+import "../styles/global.css";
+import SEOHead from "../components/seo/SEOHead.astro";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer.astro";
+import type { PageSEO } from "../config/seo";
+
+interface Props extends PageSEO {
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, canonical, ogImage, ogType, noindex, jsonLd } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="font-sans antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="theme-color" content="#3d7a6e" />
+
+    {/* Preconnect to font CDN */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      jsonLd={jsonLd}
+    />
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-neutral-50 text-dark">
+    {/* Accessibility: skip to main content */}
+    <a href="#main-content" class="skip-link"> Skip to main content </a>
+
+    <Header client:load />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

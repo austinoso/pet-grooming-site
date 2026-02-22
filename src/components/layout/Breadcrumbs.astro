@@ -1,0 +1,72 @@
+---
+/**
+ * Breadcrumbs — Renders a breadcrumb trail with JSON-LD structured data.
+ * Astro component.
+ */
+import { siteUrl } from "../../config/seo";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+// Build JSON-LD BreadcrumbList
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, siteUrl).href } : {}),
+  })),
+};
+---
+
+<nav
+  aria-label="Breadcrumb"
+  class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8"
+>
+  <ol
+    class="flex flex-wrap items-center gap-1 text-sm text-neutral-500"
+    role="list"
+  >
+    {
+      items.map((item, index) => (
+        <li class="flex items-center gap-1">
+          {index > 0 && (
+            <span class="text-neutral-300" aria-hidden="true">
+              /
+            </span>
+          )}
+          {item.href && index < items.length - 1 ? (
+            <a
+              href={item.href}
+              class="text-primary-600 no-underline hover:underline"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span
+              aria-current={index === items.length - 1 ? "page" : undefined}
+            >
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(breadcrumbJsonLd)}
+/>

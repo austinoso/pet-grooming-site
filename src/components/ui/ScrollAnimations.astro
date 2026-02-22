@@ -1,0 +1,98 @@
+---
+/**
+ * ScrollAnimations — inline GSAP scroll-triggered animations
+ *
+ * Add this component once in your layout. Then add data attributes to any element:
+ *
+ *   data-reveal              → fade up (default)
+ *   data-reveal="fade-in"    → fade in (no movement)
+ *   data-reveal="fade-left"  → slide in from left
+ *   data-reveal="fade-right" → slide in from right
+ *   data-reveal="scale"      → scale in
+ *   data-reveal-delay="0.2"  → delay in seconds
+ *   data-reveal-stagger      → stagger children (add to parent)
+ *
+ * All animations respect prefers-reduced-motion.
+ */
+---
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Respect reduced motion
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (!prefersReducedMotion) {
+    // Single elements with data-reveal
+    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+      const variant = el.dataset.reveal || "fade-up";
+      const delay = parseFloat(el.dataset.revealDelay || "0");
+
+      const from: gsap.TweenVars = { opacity: 0 };
+      const to: gsap.TweenVars = {
+        opacity: 1,
+        duration: 0.8,
+        delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 88%",
+          toggleActions: "play none none none",
+        },
+      };
+
+      switch (variant) {
+        case "fade-up":
+          from.y = 35;
+          to.y = 0;
+          break;
+        case "fade-in":
+          break;
+        case "fade-left":
+          from.x = -35;
+          to.x = 0;
+          break;
+        case "fade-right":
+          from.x = 35;
+          to.x = 0;
+          break;
+        case "scale":
+          from.scale = 0.92;
+          to.scale = 1;
+          break;
+      }
+
+      gsap.set(el, from);
+      gsap.to(el, to);
+    });
+
+    // Stagger groups: parent has data-reveal-stagger, children animate
+    document
+      .querySelectorAll<HTMLElement>("[data-reveal-stagger]")
+      .forEach((parent) => {
+        const staggerDelay = parseFloat(parent.dataset.revealStagger || "0.1");
+        const children = parent.children;
+
+        if (children.length === 0) return;
+
+        gsap.set(children, { opacity: 0, y: 30 });
+        gsap.to(children, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: staggerDelay,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: parent,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+  }
+</script>
