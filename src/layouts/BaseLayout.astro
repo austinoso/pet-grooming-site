@@ -29,10 +29,29 @@ const { title, description, canonical, ogImage, ogType, noindex, jsonLd } =
     {/* Preconnect to font CDN */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* Non-render-blocking font load */}
     <link
+      id="google-fonts"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <script is:inline>
+      (function () {
+        var f = document.getElementById("google-fonts");
+        if (f) {
+          f.onload = function () {
+            f.rel = "stylesheet";
+          };
+        }
+      })();
+    </script>
 
     <SEOHead
       title={title}

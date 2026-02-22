@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.pawsandpolish.com', // placeholder — update per client
+  site: 'https://paws.austino.dev',
   integrations: [react(), sitemap()],
 
   vite: {

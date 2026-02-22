@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.pawsandpolish.com/sitemap-index.xml
+Sitemap: https://paws.austino.dev/sitemap-index.xml
