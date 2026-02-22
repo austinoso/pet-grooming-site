@@ -1,8 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 import business from "../config/business";
 import heroImg from "../assets/images/hero-dog.jpg";
+
+// Two versions: fast-loading placeholder + crisp hi-res for swap-in
+const heroLo = await getImage({
+  src: heroImg,
+  width: 640,
+  height: 800,
+  format: "webp",
+  quality: 60,
+});
+const heroHi = await getImage({
+  src: heroImg,
+  width: 1280,
+  height: 1600,
+  format: "webp",
+  quality: 85,
+});
 ---
 
 <BaseLayout>
@@ -127,16 +143,30 @@ import heroImg from "../assets/images/hero-dog.jpg";
         >
         </div>
         <div class="relative aspect-4/5 overflow-hidden rounded-2xl shadow-2xl">
-          <Image
-            src={heroImg}
+          <img
+            id="hero-img"
+            src={heroLo.src}
+            data-hires={heroHi.src}
             alt="A happy, freshly groomed dog smiling at the camera"
-            class="h-full w-full object-cover"
+            class="h-full w-full object-cover transition-[filter] duration-700"
+            style="filter: blur(0px)"
             width={640}
             height={800}
             loading="eager"
             decoding="async"
           />
         </div>
+        <script is:inline>
+          (function () {
+            var img = document.getElementById("hero-img");
+            if (!img) return;
+            var hi = new window.Image();
+            hi.onload = function () {
+              img.src = hi.src;
+            };
+            hi.src = img.dataset.hires;
+          })();
+        </script>
         {/* Floating card */}
         <div
           class="absolute -bottom-4 -left-8 rounded-xl bg-white p-4 shadow-lg ring-1 ring-neutral-900/5"
