@@ -333,7 +333,7 @@ export default function Header() {
               </svg>
               <a
                 href={`tel:${business.phone.replace(/[^+\d]/g, "")}`}
-                className="text-neutral-500 no-underline hover:text-primary-600"
+                className="text-neutral-600 no-underline hover:text-primary-600"
               >
                 {business.phone}
               </a>

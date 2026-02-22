@@ -48,9 +48,46 @@ import business from "../../config/business";
                 class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-neutral-300 transition-colors hover:bg-primary-600 hover:text-white"
                 aria-label={s.label}
               >
-                <span class="text-xs font-semibold uppercase">
-                  {s.platform.slice(0, 2)}
-                </span>
+                {s.platform === "Facebook" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                  </svg>
+                )}
+                {s.platform === "Instagram" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <rect x="2" y="2" width="20" height="20" rx="5.5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle
+                      cx="17.5"
+                      cy="6.5"
+                      r="0.5"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </svg>
+                )}
+                {s.platform !== "Facebook" && s.platform !== "Instagram" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                )}
               </a>
             ))
           }
@@ -184,11 +221,11 @@ import business from "../../config/business";
     {/* Divider + copyright */}
     <div class="mt-12 border-t border-white/10 pt-8">
       <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <p class="text-xs text-neutral-500">
+        <p class="text-xs text-neutral-400">
           &copy; {new Date().getFullYear()}
           {business.name}. All rights reserved.
         </p>
-        <div class="flex gap-6 text-xs text-neutral-500">
+        <div class="flex gap-6 text-xs text-neutral-400">
           <a
             href="/policies"
             class="no-underline transition-colors hover:text-neutral-300"
