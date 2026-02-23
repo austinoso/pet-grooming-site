@@ -16,6 +16,7 @@ interface Props extends PageSEO {
   heading: string;
   subheading?: string;
   eyebrow?: string;
+  centered?: boolean;
   breadcrumbs?: BreadcrumbItem[];
   jsonLd?: Record<string, unknown>;
 }
@@ -24,6 +25,7 @@ const {
   heading,
   subheading,
   eyebrow,
+  centered = false,
   breadcrumbs = [{ label: "Home", href: "/" }, { label: heading }],
   ...seoProps
 } = Astro.props;
@@ -32,16 +34,20 @@ const {
 <BaseLayout {...seoProps}>
   <Breadcrumbs items={breadcrumbs} />
 
-  <section class="mx-auto max-w-7xl px-4 pb-8 pt-6 sm:px-6 lg:px-8">
-    {eyebrow && (
-      <span
-        class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
-        aria-hidden="true"
-      >
-        <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
-        {eyebrow}
-      </span>
-    )}
+  <section
+    class={`mx-auto px-4 pb-8 pt-6 sm:px-6 lg:px-8 ${centered ? "max-w-3xl text-center" : "max-w-7xl"}`}
+  >
+    {
+      eyebrow && (
+        <span
+          class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
+          aria-hidden="true"
+        >
+          <span class="h-px w-8 bg-primary-400" aria-hidden="true" />
+          {eyebrow}
+        </span>
+      )
+    }
     <h1
       class={`font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl lg:text-5xl${eyebrow ? " mt-3" : ""}`}
     >
@@ -49,7 +55,9 @@ const {
     </h1>
     {
       subheading && (
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-600">
+        <p
+          class={`mt-4 text-lg leading-relaxed text-neutral-600 ${centered ? "mx-auto max-w-2xl" : "max-w-2xl"}`}
+        >
           {subheading}
         </p>
       )

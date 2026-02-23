@@ -233,18 +233,50 @@ export default function Header({ tenant }: { tenant: TenantConfig }) {
         aria-modal={menuOpen}
         aria-label="Mobile navigation"
       >
-          <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-            <span className="font-display text-lg font-bold text-dark">
-              Menu
-            </span>
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100"
-              onClick={close}
-              aria-label="Close menu"
+        <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
+          <span className="font-display text-lg font-bold text-dark">Menu</span>
+          <button
+            type="button"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 hover:bg-neutral-100"
+            onClick={close}
+            aria-label="Close menu"
+          >
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              aria-hidden="true"
             >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <nav
+          className="flex-1 overflow-y-auto px-3 py-4"
+          aria-label="Mobile navigation"
+        >
+          {mainNav.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={`flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-medium transition-colors ${
+                currentPath === item.href
+                  ? "bg-primary-50 text-primary-600"
+                  : "text-dark hover:bg-neutral-50"
+              }`}
+              aria-current={currentPath === item.href ? "page" : undefined}
+              onClick={close}
+            >
+              {item.label}
               <svg
-                className="h-5 w-5"
+                className="h-4 w-4 text-neutral-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
@@ -254,93 +286,59 @@ export default function Header({ tenant }: { tenant: TenantConfig }) {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <nav
-            className="flex-1 overflow-y-auto px-3 py-4"
-            aria-label="Mobile navigation"
-          >
-            {mainNav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-medium transition-colors ${
-                  currentPath === item.href
-                    ? "bg-primary-50 text-primary-600"
-                    : "text-dark hover:bg-neutral-50"
-                }`}
-                aria-current={currentPath === item.href ? "page" : undefined}
-                onClick={close}
-              >
-                {item.label}
-                <svg
-                  className="h-4 w-4 text-neutral-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </a>
-            ))}
-          </nav>
-
-          <div className="border-t border-neutral-100 p-5">
-            <a
-              href={ctaLink.href}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 active:scale-[0.97]"
-              onClick={close}
-            >
-              {ctaLink.label}
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
                 />
               </svg>
             </a>
-            <div className="mt-4 flex items-center gap-3 text-sm text-neutral-500">
-              <svg
-                className="h-4 w-4 shrink-0 text-primary-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                />
-              </svg>
-              <a
-                href={`tel:${tenant.phone.replace(/[^+\d]/g, "")}`}
-                className="text-neutral-600 no-underline hover:text-primary-600"
-              >
-                {tenant.phone}
-              </a>
-            </div>
+          ))}
+        </nav>
+
+        <div className="border-t border-neutral-100 p-5">
+          <a
+            href={ctaLink.href}
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 active:scale-[0.97]"
+            onClick={close}
+          >
+            {ctaLink.label}
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </a>
+          <div className="mt-4 flex items-center gap-3 text-sm text-neutral-500">
+            <svg
+              className="h-4 w-4 shrink-0 text-primary-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+              />
+            </svg>
+            <a
+              href={`tel:${tenant.phone.replace(/[^+\d]/g, "")}`}
+              className="text-neutral-600 no-underline hover:text-primary-600"
+            >
+              {tenant.phone}
+            </a>
           </div>
         </div>
+      </div>
     </>
   );
 }

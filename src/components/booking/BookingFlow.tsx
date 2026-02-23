@@ -7,6 +7,36 @@ import { useState, useRef } from "react";
  */
 
 const PET_TYPES = ["Dog", "Cat"] as const;
+
+const DogIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="size-4 shrink-0"
+    aria-hidden="true"
+  >
+    {/* Floppy ears */}
+    <ellipse cx="6.5" cy="9.5" rx="2.5" ry="3.5" />
+    <ellipse cx="17.5" cy="9.5" rx="2.5" ry="3.5" />
+    {/* Face */}
+    <circle cx="12" cy="13.5" r="6" />
+  </svg>
+);
+
+const CatIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="size-4 shrink-0"
+    aria-hidden="true"
+  >
+    {/* Face */}
+    <circle cx="12" cy="14" r="6" />
+    {/* Pointed ears */}
+    <polygon points="6,13 8,5 11,10" />
+    <polygon points="18,13 16,5 13,10" />
+  </svg>
+);
 const PET_SIZES = [
   "Small (under 25 lbs)",
   "Medium (25–50 lbs)",
@@ -284,13 +314,13 @@ export default function BookingFlow() {
                       role="radio"
                       aria-checked={data.petType === type}
                       onClick={() => update({ petType: type })}
-                      className={`rounded-lg border px-6 py-3 text-sm font-medium transition-all ${
+                      className={`inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-medium transition-all ${
                         data.petType === type
                           ? "border-primary-500 bg-primary-50 text-primary-600 ring-2 ring-primary-200"
                           : "border-neutral-300 text-neutral-600 hover:border-neutral-400"
                       }`}
                     >
-                      {type === "Dog" ? "🐕" : "🐈"} {type}
+                      {type === "Dog" ? <DogIcon /> : <CatIcon />} {type}
                     </button>
                   ))}
                 </div>
