@@ -15,6 +15,7 @@ interface BreadcrumbItem {
 interface Props extends PageSEO {
   heading: string;
   subheading?: string;
+  eyebrow?: string;
   breadcrumbs?: BreadcrumbItem[];
   jsonLd?: Record<string, unknown>;
 }
@@ -22,6 +23,7 @@ interface Props extends PageSEO {
 const {
   heading,
   subheading,
+  eyebrow,
   breadcrumbs = [{ label: "Home", href: "/" }, { label: heading }],
   ...seoProps
 } = Astro.props;
@@ -31,15 +33,17 @@ const {
   <Breadcrumbs items={breadcrumbs} />
 
   <section class="mx-auto max-w-7xl px-4 pb-8 pt-6 sm:px-6 lg:px-8">
-    <span
-      class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
-      aria-hidden="true"
-    >
-      <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
-      {heading}
-    </span>
+    {eyebrow && (
+      <span
+        class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600"
+        aria-hidden="true"
+      >
+        <span class="h-px w-8 bg-primary-400" aria-hidden="true"></span>
+        {eyebrow}
+      </span>
+    )}
     <h1
-      class="mt-3 font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl lg:text-5xl"
+      class={`font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl lg:text-5xl${eyebrow ? " mt-3" : ""}`}
     >
       {heading}
     </h1>

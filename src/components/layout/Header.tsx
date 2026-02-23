@@ -211,27 +211,28 @@ export default function Header({ tenant }: { tenant: TenantConfig }) {
             </div>
           </button>
         </div>
+      </header>
 
-        {/* Mobile overlay */}
-        {menuOpen && (
-          <div
-            className="fixed inset-0 z-40 bg-dark/50 backdrop-blur-sm lg:hidden"
-            onClick={close}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Mobile panel */}
+      {/* Mobile overlay — outside <header> so backdrop-filter doesn't trap fixed positioning */}
+      {menuOpen && (
         <div
-          id="mobile-menu"
-          ref={mobileMenuRef}
-          className={`fixed right-0 top-0 z-50 flex h-full w-80 max-w-[85vw] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
-            menuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-          role="dialog"
-          aria-modal={menuOpen}
-          aria-label="Mobile navigation"
-        >
+          className="fixed inset-0 z-40 bg-dark/50 backdrop-blur-sm lg:hidden"
+          onClick={close}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile panel — outside <header> for the same reason */}
+      <div
+        id="mobile-menu"
+        ref={mobileMenuRef}
+        className={`fixed right-0 top-0 z-50 flex h-full w-80 max-w-[85vw] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal={menuOpen}
+        aria-label="Mobile navigation"
+      >
           <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
             <span className="font-display text-lg font-bold text-dark">
               Menu
@@ -340,7 +341,6 @@ export default function Header({ tenant }: { tenant: TenantConfig }) {
             </div>
           </div>
         </div>
-      </header>
     </>
   );
 }
